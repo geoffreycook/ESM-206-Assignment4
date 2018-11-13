@@ -9,4 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r echo = FALSE, include = FALSE}
+
+library(tidyverse)
+library(pwr)
+library(kableExtra)
+library(RColorBrewer)
+library(car)
+```
+
 The Markdown Document has been Created!
+
