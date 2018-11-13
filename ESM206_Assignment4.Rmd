@@ -1,0 +1,12 @@
+---
+title: "ESM206_Assignment4"
+author: "Geoffrey Cook"
+date: "11/13/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The Markdown Document has been Created!
