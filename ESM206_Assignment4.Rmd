@@ -86,7 +86,10 @@ size_boxplot
 # At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
 
 
-# New df looking at 
+# New df looking at MPAs
+MPA_sizes <- lobster_size_tidied %>% 
+  mutate(MPA= case_when(.$SITE== "IVEE" | .$SITE =="NAPL"~ "Y",
+                        TRUE~ "N"))
 
 ```
 
