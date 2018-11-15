@@ -70,8 +70,11 @@ site_traps
 size_boxplot <- ggplot(lobster_size_tidied, aes(x=SITE, y= SIZE)) +
   geom_boxplot()
 size_boxplot
+<<<<<<< HEAD
 
 # They LOOK really similar. This feels like a job for... ANOVA!
+=======
+>>>>>>> 719d8bd7e8bbefbdbe9ac598b3b7c59fb81d8007
 
 ```
 
