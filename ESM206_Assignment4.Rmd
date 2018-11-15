@@ -29,7 +29,7 @@ lobster_size_tidied <- lobster_size %>%
   select(YEAR, MONTH, SITE, SIZE, COUNT) %>% 
   filter(SIZE != "-99999")
 
-lobster_expand <- expand.dft(data.frame(lobster_tidied), freq="COUNT")
+lobster_expand <- expand.dft(data.frame(lobster_size_tidied), freq="COUNT")
 
 # fix the lobster traps data into a slightly more manageable data frame
 lobster_traps_tidied <- lobster_traps %>% 
@@ -44,14 +44,40 @@ lobster_traps_tidied <- lobster_traps %>%
 # 1. Lobster abundance and fishing pressure (2012 - 2017)
 # Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
 
-# Exploring trends in lobster counts between sites
-
+########## Exploring trends in lobster counts and traps between sites##########
 # summary table of some statistics by site called sites_sizes
 sites_sizes <- lobster_size_tidied %>% 
   group_by(SITE) %>% 
-  summarize(count=n())
+  summarize(count=n(),
+            mean=mean(SIZE))
+sites_sizes
+
+# summary of trap data
+site_traps <- lobster_traps_tidied %>% 
+  group_by(SITE) %>% 
+  summarize(total= sum(TRAPS))
+site_traps
 
 ```
 
+```{r}
 
+# 2. Compare mean lobster size by site in 2017
+# Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. 
+
+# Exploring the lobster sizes by site
+
+size_boxplot <- ggplot(lobster_size_tidied, aes(x=SITE, y= SIZE)) +
+  geom_boxplot()
+size_hist
+
+```
+
+```{r}
+
+# 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
+# From the data description (http://sbc.lternet.edu/cgi-bin/showDataset.cgi?docid=knb-lter-sbc.77):
+# “Data on abundance, size and fishing pressure of California spiny lobster (Panulirus interruptus) are collected along the mainland coast of the Santa Barbara Channel. Spiny lobsters are an important predator in giant kelp forests off southern California. Two SBC LTER study reefs are located in or near the California Fish and Game Network of Marine Protected Areas (MPA), Naples and Isla Vista, both established as MPAs on 2012-01-01. MPAs provide a unique opportunity to investigate the effects of fishing on kelp forest community dynamics. Sampling began in 2012 and is ongoing.”
+# At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
+```
 
