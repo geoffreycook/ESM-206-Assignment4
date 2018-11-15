@@ -25,13 +25,31 @@ lobster_traps <- read_csv("lobster_traps.csv")
 
 # fix the lobster size data: select relevant columns, get rid of the zero counts, expand so that each lobster has its own row
 
-lobster_tidied <- lobster_size %>% 
+lobster_size_tidied <- lobster_size %>% 
   select(YEAR, MONTH, SITE, SIZE, COUNT) %>% 
   filter(SIZE != "-99999")
 
 lobster_expand <- expand.dft(data.frame(lobster_tidied), freq="COUNT")
 
+# fix the lobster traps data into a slightly more manageable data frame
+lobster_traps_tidied <- lobster_traps %>% 
+  select(YEAR,MONTH,SITE,TRAPS)
 
+```
+
+
+
+```{r}
+
+# 1. Lobster abundance and fishing pressure (2012 - 2017)
+# Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
+
+# Exploring trends in lobster counts between sites
+
+# summary table of some statistics by site called sites_sizes
+sites_sizes <- lobster_size_tidied %>% 
+  group_by(SITE) %>% 
+  summarize(count=n())
 
 ```
 
