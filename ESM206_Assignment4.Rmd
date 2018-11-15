@@ -16,7 +16,24 @@ library(pwr)
 library(kableExtra)
 library(RColorBrewer)
 library(car)
+library(vcdExtra)
+
+# load lobster datasets 
+
+lobster_size <- read_csv("lobster_size_abundance.csv")
+lobster_traps <- read_csv("lobster_traps.csv")
+
+# fix the lobster size data: select relevant columns, get rid of the zero counts, expand so that each lobster has its own row
+
+lobster_tidied <- lobster_size %>% 
+  select(YEAR, MONTH, SITE, SIZE, COUNT) %>% 
+  filter(SIZE != "-99999")
+
+lobster_expand <- expand.dft(data.frame(lobster_tidied), freq="COUNT")
+
+
+
 ```
 
-The Markdown Document has been Created!
+
 
