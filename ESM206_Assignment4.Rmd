@@ -69,7 +69,7 @@ site_traps
 
 size_boxplot <- ggplot(lobster_size_tidied, aes(x=SITE, y= SIZE)) +
   geom_boxplot()
-size_hist
+size_boxplot
 
 ```
 
