@@ -49,7 +49,7 @@ lobster_traps_tidied <- lobster_traps %>%
 sites_sizes <- lobster_expand %>% 
   group_by(SITE) %>% 
   summarize(count=n(),
-            mean=mean(SIZE))
+            mean=round(mean(SIZE),2))
 sites_sizes
 
 # summary of trap data
@@ -72,10 +72,15 @@ lobster_expand_2017 <- lobster_expand %>%
 
 size_boxplot <- ggplot(lobster_expand_2017, aes(x = SITE, y = SIZE)) +
   geom_boxplot(aes(fill = SITE)) +
+  theme(panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(), 
+      panel.background = element_blank(),
+      axis.line = element_line(colour = "black")) +
   labs(x = "Site Names",
        y = "Carapace Length (mm)", 
-       title = "Mean Lobster Size by Site") +
-       theme(legend.position = "none")
+       title = "Mean Lobster Size by Site") + # WILL need a fig. caption instead of title in the report
+       theme(legend.position = "none") +
+  scale_fill_brewer()
 size_boxplot
 
 
@@ -83,6 +88,19 @@ size_boxplot
 
 
 ```
+```{r}
+# THE ANOVA TEST
+# - Independent observations
+# - Equal variances (Levene's test)
+# - Normality (histograms and qq plots)
+# Only after exploring these things can we decide whether or not an ANOVA is appropriate to test these means. 
+
+
+
+
+```
+
+
 
 ```{r}
 
