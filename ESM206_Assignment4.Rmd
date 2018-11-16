@@ -221,5 +221,18 @@ MOHK_f_test
 MOHK_size_t <- t.test (mohk_2012$SIZE, mohk_2017$SIZE, var.equal=TRUE)
 MOHK_size_t
 #p< 0.001 
+
+napl_2012 <- lobster_expand_2012 %>% 
+  filter (SITE =="NAPL")
+napl_2017 <- lobster_expand_2017 %>% 
+  filter (SITE =="NAPL")
+#check for equal variance
+NAPL_f_test <- var.test(napl_2012$SIZE,napl_2017$SIZE)
+NAPL_f_test
+#variances are equal! run t.test with va.equal=TRUE
+NAPL_size_t <- t.test (napl_2012$SIZE, napl_2017$SIZE, var.equal=TRUE)
+NAPL_size_t
+#p=0.5002
+
 ```
 
