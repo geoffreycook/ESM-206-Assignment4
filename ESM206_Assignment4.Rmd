@@ -208,5 +208,18 @@ AQUE_f_test
 AQUE_size_t <- t.test (aque_2012$SIZE, aque_2017$SIZE, var.equal=TRUE)
 AQUE_size_t
 #p=0.2097
+
+#create new MOHK dataframes
+mohk_2012 <- lobster_expand_2012 %>% 
+  filter (SITE =="MOHK")
+mohk_2017 <- lobster_expand_2017 %>% 
+  filter (SITE =="MOHK")
+#check for equal variance
+MOHK_f_test <- var.test(mohk_2012$SIZE,mohk_2017$SIZE)
+MOHK_f_test
+#variances are equal! run t.test with va.equal=TRUE
+MOHK_size_t <- t.test (mohk_2012$SIZE, mohk_2017$SIZE, var.equal=TRUE)
+MOHK_size_t
+#p< 0.001 
 ```
 
