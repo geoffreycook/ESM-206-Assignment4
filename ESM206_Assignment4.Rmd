@@ -46,7 +46,7 @@ lobster_traps_tidied <- lobster_traps %>%
 
 ########## Exploring trends in lobster counts and traps between sites##########
 # summary table of some statistics by site called sites_sizes
-sites_sizes <- lobster_size_tidied %>% 
+sites_sizes <- lobster_expand %>% 
   group_by(SITE) %>% 
   summarize(count=n(),
             mean=mean(SIZE))
@@ -54,7 +54,8 @@ sites_sizes
 
 # summary of trap data
 site_traps <- lobster_traps_tidied %>% 
-  group_by(SITE) %>% 
+  group_by(SITE) %>%
+  filter(SITE == "AQUE" | SITE == "NAPL" | SITE == "MOHK" | SITE == "IVEE" | SITE == "CARP") %>% 
   summarize(total= sum(TRAPS))
 site_traps
 
@@ -67,7 +68,7 @@ site_traps
 
 # Exploring the lobster sizes by site
 
-size_boxplot <- ggplot(lobster_size_tidied, aes(x=SITE, y= SIZE)) +
+size_boxplot <- ggplot(lobster_expand, aes(x=SITE, y= SIZE)) +
   geom_boxplot()
 size_boxplot
 
@@ -86,7 +87,7 @@ size_boxplot
 
 
 # New df looking at MPAs
-MPA_sizes <- lobster_size_tidied %>% 
+MPA_sizes <- lobster_expand %>% 
   mutate(MPA= case_when(.$SITE== "IVEE" | .$SITE =="NAPL"~ "Y",
                         TRUE~ "N"))
 
