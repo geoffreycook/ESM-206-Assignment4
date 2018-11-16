@@ -68,7 +68,7 @@ site_traps
 
 # Exploring the lobster sizes by site
 lobster_expand_2017 <- lobster_expand %>% 
-    filter(YEAR == "2017") 
+    filter(YEAR == "2017")
 
 size_boxplot <- ggplot(lobster_expand_2017, aes(x = SITE, y = SIZE)) +
   geom_boxplot(aes(fill = SITE)) +
@@ -233,6 +233,20 @@ NAPL_f_test
 NAPL_size_t <- t.test (napl_2012$SIZE, napl_2017$SIZE, var.equal=TRUE)
 NAPL_size_t
 #p=0.5002
+
+```
+
+```{r}
+# What is the proportion of lobsters above the legal length (82.6 mm)? Compare that amongst the 5 sites.
+
+# chi-square test
+
+# lobsters at each site, above and below legal lengths
+legal_lobsters <- lobster_expand_2017 %>% 
+  group_by(SITE) %>% 
+  mutate("LEGAL"= case_when(SIZE > 82.6 ~ "Y", TRUE ~ "N")) %>% 
+  count(LEGAL) %>% 
+  spread(LEGAL, n)
 
 ```
 
