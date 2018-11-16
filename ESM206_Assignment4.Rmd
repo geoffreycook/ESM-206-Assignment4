@@ -181,6 +181,20 @@ CARP_f_test
 #variances are equal! run t.test with va.equal=TRUE
 CARP_size_t <- t.test (lobster_expand_2012$SIZE, lobster_expand_2017$SIZE, var.equal=TRUE)
 CARP_size_t
+#p=0.07794
+
+#create new IVEE dataframes
+ivee_2012 <- lobster_expand_2012 %>% 
+  filter (SITE =="IVEE")
+ivee_2017 <- lobster_expand_2017 %>% 
+  filter (SITE =="IVEE")
+#check for equal variance
+IVEE_f_test <- var.test(ivee_2012$SIZE,ivee_2017$SIZE)
+IVEE_f_test
+#variances are equal! run t.test with va.equal=TRUE
+IVEE_size_t <- t.test (ivee_2012$SIZE, ivee_2017$SIZE, var.equal=TRUE)
+IVEE_size_t
+# p= 0.0599
 
 
 
