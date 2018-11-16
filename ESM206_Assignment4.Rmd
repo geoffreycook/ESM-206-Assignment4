@@ -165,6 +165,13 @@ lobster_size_2012_hist <- ggplot(lobster_expand_2012, aes(x=SIZE)) +
   facet_wrap(~SITE)
 lobster_size_2012_hist
 
+# Ok, they're mostly normal-ish (except for the one with 6 data points, so yikes!)
+# Now for some t-tests!
+#CARP, IVEE, AQUE, MOHK, NAPL
+CARP_f_test <- var.test(lobster_expand_2012$SIZE, lobster_expand_2017$SIZE)
+CARP_f_test
+CARP_size_t <- t.test (lobster_expand_2012$SIZE, lobster_expand_2017$SIZE, var.equal=TRUE)
+CARP_size_t
 
 ```
 
