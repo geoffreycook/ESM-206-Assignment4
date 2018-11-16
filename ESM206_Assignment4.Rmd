@@ -27,7 +27,7 @@ lobster_traps <- read_csv("lobster_traps.csv")
 
 lobster_size_tidied <- lobster_size %>% 
   select(YEAR, MONTH, SITE, SIZE, COUNT) %>% 
-  filter(SIZE != "-99999")
+  filter(SIZE != "-99999") # if the size is -9999, then the count was zero.
 
 lobster_expand <- expand.dft(data.frame(lobster_size_tidied), freq="COUNT")
 
@@ -95,8 +95,35 @@ size_boxplot
 # - Normality (histograms and qq plots)
 # Only after exploring these things can we decide whether or not an ANOVA is appropriate to test these means. 
 
+lobster_size_qq <- ggplot(lobster_expand_2017, aes(sample=SIZE))+
+  geom_qq() +
+  facet_wrap(~SITE)
+lobster_size_qq
 
+lobster_size_hist <- ggplot(lobster_expand_2017, aes(x=SIZE)) +
+  geom_histogram() +
+  facet_wrap(~SITE)
+lobster_size_hist
 
+# Test for equal variances
+# If the largest sample variance is less than 4x greater than the smallest sample variance, then these are close enough to consider variances equal (an ANOVA is robust enough for this)
+
+variances <- lobster_expand_2017 %>% 
+  group_by(SITE) %>% 
+  summarize(
+    variance=var(SIZE)
+  )
+variances
+# The largest variance is not more than 4x greater than the smallest variance! Yay
+
+# YAY now we can ANOVA
+# H0: the means across all groups are equal
+# H1: the means between at least two groups are different
+
+lobster_size_2017_aov <- aov(SIZE ~ SITE, data= lobster_expand_2017)
+summary(lobster_size_2017_aov)
+
+# p=0.0085.... interesting
 
 ```
 
