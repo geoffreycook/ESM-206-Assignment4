@@ -167,7 +167,7 @@ lobster_size_2012_hist
 
 # Ok, they're mostly normal-ish (except for the one with 6 data points, so yikes!)
 # Now for some t-tests!
-#CARP, IVEE, AQUE, MOHK, NAPL
+# CARP, IVEE, AQUE, MOHK, NAPL
 
 
 #create new carp dataframes
@@ -196,7 +196,17 @@ IVEE_size_t <- t.test (ivee_2012$SIZE, ivee_2017$SIZE, var.equal=TRUE)
 IVEE_size_t
 # p= 0.0599
 
-
-
+#create new AQUE dataframes
+aque_2012 <- lobster_expand_2012 %>% 
+  filter (SITE =="AQUE")
+aque_2017 <- lobster_expand_2017 %>% 
+  filter (SITE =="AQUE")
+#check for equal variance
+AQUE_f_test <- var.test(aque_2012$SIZE,aque_2017$SIZE)
+AQUE_f_test
+#variances are equal! run t.test with va.equal=TRUE
+AQUE_size_t <- t.test (aque_2012$SIZE, aque_2017$SIZE, var.equal=TRUE)
+AQUE_size_t
+#p=0.2097
 ```
 
