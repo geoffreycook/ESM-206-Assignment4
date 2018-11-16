@@ -148,5 +148,23 @@ MPA_sizes <- lobster_expand %>%
   mutate(MPA= case_when(.$SITE== "IVEE" | .$SITE =="NAPL"~ "Y",
                         TRUE~ "N"))
 
+# t-test craziness-- comparing 2012 to 2017 mean carapace size at each of the 5 sites
+
+# but first, checking for normality/generally looking at the data
+
+lobster_expand_2012 <- lobster_expand %>% 
+    filter(YEAR == "2012") 
+
+lobster_size_2012_qq <- ggplot(lobster_expand_2012, aes(sample=SIZE))+
+  geom_qq() +
+  facet_wrap(~SITE)
+lobster_size_2012_qq
+
+lobster_size_2012_hist <- ggplot(lobster_expand_2012, aes(x=SIZE)) +
+  geom_histogram() +
+  facet_wrap(~SITE)
+lobster_size_2012_hist
+
+
 ```
 
