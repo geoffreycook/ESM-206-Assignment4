@@ -67,9 +67,15 @@ site_traps
 # Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. 
 
 # Exploring the lobster sizes by site
+lobster_expand_2017 <- lobster_expand %>% 
+    filter(YEAR == "2017") 
 
-size_boxplot <- ggplot(lobster_expand, aes(x=SITE, y= SIZE)) +
-  geom_boxplot()
+size_boxplot <- ggplot(lobster_expand_2017, aes(x = SITE, y = SIZE)) +
+  geom_boxplot(aes(fill = SITE)) +
+  labs(x = "Site Names",
+       y = "Carapace Length (mm)", 
+       title = "Mean Lobster Size by Site") +
+       theme(legend.position = "none")
 size_boxplot
 
 
