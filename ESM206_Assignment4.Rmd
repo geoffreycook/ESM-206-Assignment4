@@ -124,7 +124,13 @@ lobster_size_2017_aov <- aov(SIZE ~ SITE, data= lobster_expand_2017)
 summary(lobster_size_2017_aov)
 
 # p=0.0085.... interesting
+# So which ones are different, then?!?!
+# Tukeys HSD
 
+lobster_size_2017_ph <- TukeyHSD(lobster_size_2017_aov  )
+lobster_size_2017_ph
+
+# sig differences between NAPL-CARP, NAPL-IVEE at alpha=.05
 ```
 
 
