@@ -33,7 +33,8 @@ lobster_expand <- expand.dft(data.frame(lobster_size_tidied), freq="COUNT")
 
 # fix the lobster traps data into a slightly more manageable data frame
 lobster_traps_tidied <- lobster_traps %>% 
-  select(YEAR,MONTH,SITE,TRAPS)
+  select(YEAR,MONTH,SITE,TRAPS) %>% 
+   filter(SITE == "AQUE" | SITE == "NAPL" | SITE == "MOHK" | SITE == "IVEE" | SITE == "CARP")
 
 ```
 
@@ -48,32 +49,49 @@ lobster_traps_tidied <- lobster_traps %>%
 # summary table of some statistics by site called sites_sizes for the whole range 2012-2017
 
 sites_sizes <- lobster_expand %>% 
-  group_by(SITE) %>% 
-  summarize(count=n(),
-            mean=round(mean(SIZE),2))
+  group_by(YEAR) %>% 
+  summarize(count=n())
 sites_sizes
 
-# summary of trap data
+# summary of trap data - for all years! 
 site_traps <- lobster_traps_tidied %>% 
-  group_by(SITE) %>%
+  group_by(YEAR) %>%
   filter(SITE == "AQUE" | SITE == "NAPL" | SITE == "MOHK" | SITE == "IVEE" | SITE == "CARP") %>% 
   summarize(total= sum(TRAPS))
 site_traps
 
-lobster_join <- full_join(sites_sizes,site_traps, by= "SITE") %>% 
-  rename("traps"="count",
-         "mean_size"="mean",
-         "n"="count")
+lobster_join <- full_join(sites_sizes,site_traps, by= "YEAR") %>% 
+  rename("total_traps"="total",
+         "lobster_count"="count")
 lobster_join
 
 #### visualizing lobster abundance over time (2012-2017)
 
 lobster_abundance_summary <- lobster_expand %>%
-  group_by(YEAR,SITE) %>% 
+  group_by(YEAR) %>% 
   summarize("count"=n())
   
 
-# lobster_abundance_plot <- ggplot(lobster_expand, aes(x=YEAR,y=)
+lobster_abundance_plot <- ggplot(lobster_abundance_summary, aes(x=YEAR,y=count))+
+  geom_line(aes())
+lobster_abundance_plot
+
+#### visualizing lobster trap pressure over time 2012-2017 (number of traps)
+
+lobster_trap_summary <- lobster_traps_tidied %>%
+  group_by(YEAR) %>% 
+  summarize("count"=n())
+
+lobster_trap_plot <- ggplot(lobster_trap_summary, aes(x=YEAR,y=count))+
+  geom_line(aes())
+lobster_trap_plot
+
+### trying to visualize abundance AND trap pressure on one graph....
+
+lobster_abundance_trap_plot <- ggplot(lobster_join) + 
+  geom_line(aes(x=YEAR,y=lobster_count)) +
+  geom_line(aes(x=YEAR,y=total_traps))
+lobster_abundance_trap_plot
 
 ```
 
