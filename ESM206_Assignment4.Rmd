@@ -59,6 +59,11 @@ site_traps <- lobster_traps_tidied %>%
   summarize(total= sum(TRAPS))
 site_traps
 
+lobster_join <- full_join(sites_sizes,site_traps, by= "SITE") %>% 
+  rename("traps"="count",
+         "mean_size"="mean",
+         "n"="count")
+
 ```
 
 ```{r}
