@@ -45,7 +45,8 @@ lobster_traps_tidied <- lobster_traps %>%
 # Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
 
 ########## Exploring trends in lobster counts and traps between sites##########
-# summary table of some statistics by site called sites_sizes
+# summary table of some statistics by site called sites_sizes for the whole range 2012-2017
+
 sites_sizes <- lobster_expand %>% 
   group_by(SITE) %>% 
   summarize(count=n(),
@@ -63,6 +64,16 @@ lobster_join <- full_join(sites_sizes,site_traps, by= "SITE") %>%
   rename("traps"="count",
          "mean_size"="mean",
          "n"="count")
+lobster_join
+
+#### visualizing lobster abundance over time (2012-2017)
+
+lobster_abundance_summary <- lobster_expand %>%
+  group_by(YEAR,SITE) %>% 
+  summarize("count"=n())
+  
+
+# lobster_abundance_plot <- ggplot(lobster_expand, aes(x=YEAR,y=)
 
 ```
 
