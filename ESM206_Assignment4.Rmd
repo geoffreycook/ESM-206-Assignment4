@@ -240,16 +240,30 @@ NAPL_size_t
 # What is the proportion of lobsters above the legal length (82.6 mm)? Compare that amongst the 5 sites.
 
 # chi-square test
+# H0: no association between site and lobsters being legal size (independence)
+# H1: there is an association between the variables (non-independence)
+
 
 # lobsters at each site, above and below legal lengths
+# prepating data for the chi-squared test
 legal_lobsters <- lobster_expand_2017 %>% 
   group_by(SITE) %>% 
   mutate("LEGAL"= case_when(SIZE > 82.6 ~ "Y", TRUE ~ "N")) %>% 
   count(LEGAL) %>% 
   spread(LEGAL, n) %>% 
+  ungroup() %>% 
   select (-SITE)
 
-#rownames(legal_lobsters) <- c("nonlegal", "legal")
+rownames(legal_lobsters) <- c("AQUE", "CARP","IVEE","MOHK","NAPL")
+
+#calculate proportions in a prop.table
+legal_prop <- prop.table(as.matrix(legal_lobsters), 1)
+legal_prop
+
+legal_chisquare <- chisq.test(legal_lobsters)
+legal_chisquare
+
+# p-value = 0.0009864
 
 ```
 
