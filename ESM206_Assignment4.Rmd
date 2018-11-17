@@ -68,18 +68,19 @@ lobster_join
 #### visualizing lobster abundance over time (2012-2017)
 
 lobster_abundance_summary <- lobster_expand %>%
-  group_by(YEAR) %>% 
+  group_by(YEAR, SITE) %>% 
   summarize("count"=n())
   
 
 lobster_abundance_plot <- ggplot(lobster_abundance_summary, aes(x=YEAR,y=count))+
-  geom_line(aes())
+  geom_line(aes())+
+  facet_wrap(~SITE)
 lobster_abundance_plot
 
 #### visualizing lobster trap pressure over time 2012-2017 (number of traps)
 
 lobster_trap_summary <- lobster_traps_tidied %>%
-  group_by(YEAR) %>% 
+  group_by(YEAR, SITE) %>% 
   summarize("count"=n())
 
 lobster_trap_plot <- ggplot(lobster_trap_summary, aes(x=YEAR,y=count))+
@@ -100,6 +101,25 @@ lobster_abundance_trap_plot <- ggplot(lobster_join) +
 
 lobster_abundance_trap_plot
 
+# THIS IS COOL cause it shows a really direct relationship between lobsters and number of traps...
+# AND NOW to explore the data by site
+
+# joining the two summary tables of lobster abundance and traps
+
+size_abundance_join <- full_join(lobster_abundance_summary, lobster_trap_summary, by=c("YEAR","SITE")) %>% 
+   rename("lobster_count"="count.x",
+         "trap_count"="count.y")
+
+# Can I make these into facet_wrapped line graphs? 
+abundance_trap_sites_plot <- ggplot(size_abundance_join) + 
+  geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
+  geom_line(aes(x=YEAR,y=trap_count), color="grey")+
+   theme(panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(), 
+      panel.background = element_blank(),
+      axis.line = element_line(colour = "black"))+
+  facet_wrap(~SITE)
+abundance_trap_sites_plot
 
 ```
 
