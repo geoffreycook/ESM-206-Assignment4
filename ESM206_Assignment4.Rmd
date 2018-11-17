@@ -94,9 +94,12 @@ lobster_abundance_trap_plot <- ggplot(lobster_join) +
   theme(panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(), 
       panel.background = element_blank(),
-      axis.line = element_line(colour = "black"))
+      axis.line = element_line(colour = "black")) +
+   labs(x = "Year",
+       y = "Count of traps and lobsters")
 
 lobster_abundance_trap_plot
+
 
 ```
 
