@@ -246,7 +246,10 @@ legal_lobsters <- lobster_expand_2017 %>%
   group_by(SITE) %>% 
   mutate("LEGAL"= case_when(SIZE > 82.6 ~ "Y", TRUE ~ "N")) %>% 
   count(LEGAL) %>% 
-  spread(LEGAL, n)
+  spread(LEGAL, n) %>% 
+  select (-SITE)
+
+#rownames(legal_lobsters) <- c("nonlegal", "legal")
 
 ```
 
