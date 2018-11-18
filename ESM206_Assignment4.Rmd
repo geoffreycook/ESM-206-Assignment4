@@ -168,7 +168,7 @@ abundance_trap_sites_plot
 
 Mean carapace length (mm) of Spiny Lobsters differed significantly accross the 5 sites studied for the year 2017 (one-way ANOVA, F(4, 1663) = 3.42, *p* = 0.009, $\alpha$ = 0.05). Post-hoc analysis with Tukey's HSD ($\alpha$ = 0.05) revealed that the Naples location differed significantly with Carpinteria and Isla Vista (pairwise *p* = 0.023, and pairwise *p* = 0.004, respectively). This is consistent with the marked decrease in fishing pressure prior to 2017 in Carpinteria and Isla Vista compared to Naples where population abundance and fishing pressure remained relatively flat. The goal of supporting population growth by limiting fishing appears to be supported by this data but further analysis is required to determine how such a difference in individual lobster size could grow while outside pressures remained relatively constant.
 
-```{r echo = FALSE, include = TRUE, fig.align = "center", fig.cap = "**Figure 3. Mean Lobster Size by Location** Observations of mean Spiny Lobster size as measured by carapace length (millimeters) accross all 5 locations studied for the year 2017. Lower and upper boundaries of boxes represent 25th and 75th percentiles, respectively. Whiskers represented are 1.5x the interquartile range. Points indicate outliers. "}
+```{r echo = FALSE, include = TRUE, fig.align = "center", fig.cap = "**Figure 3. Mean Lobster Size by Location** Observations of mean Spiny Lobster size as measured by carapace length (millimeters) accross all 5 locations studied for the year 2017. Lower and upper boundaries of boxes represent 25th and 75th percentiles, respectively. Whiskers represented are 1.5x the interquartile range. Points indicate outliers."}
 
 # 2. Compare mean lobster size by site in 2017
 # Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. 
@@ -342,6 +342,54 @@ NAPL_size_t
 #p=0.5002
 
 ```
+**Table 1: Comparisons of Mean Lobster Size in 2012 and 2017 at MPA Sites** Spiny Lobster sizes (carapace length in mm) at Isla Vista showed a significant difference between 2012 and 2017 based on a two-sample Student's t-test (t(`r round(IVEE_size_t$parameter, digits = 2)`) = `r round(IVEE_size_t$statistic, digits = 2)`, *p* = `r round(IVEE_size_t$p.value, digits = 2)`, $\alpha$ = 0.05), whereas Spiny Lobsters at the Naples location did not show a significant difference between 2012 and 2017 based on a two-sample Student's t-test (t(`r round(NAPL_size_t$parameter, digits = 2)`) = `r round(NAPL_size_t$statistic, digits = 2)`, *p* = `r round(NAPL_size_t$p.value, digits = 2)`, $\alpha$ = 0.05).
+
+```{r echo = FALSE, include = TRUE}
+### Creating a new data frame to be used in a table for number 3 highlighting only MPA sites
+mpa_summary <- lobster_expand %>% 
+  filter(YEAR == "2012" | YEAR == "2017") %>% 
+  filter(SITE == "IVEE" | SITE == "NAPL") %>% 
+  select("YEAR", "SITE", "SIZE") %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(mean = round(mean(SIZE), 2),
+            sd = round(sd(SIZE), 2))
+
+kable(mpa_summary, col.names = c("Site",
+                        "Year",
+                        "Mean Carapace Length (mm)",
+                        "Standard Deviation (mm)"),
+        font.lab = 50) %>% 
+        # Alternating colors with appropriate table width and a 'hover' feature for html viewers
+        kable_styling(bootstrap_option = c("striped", "hover"), full_width = FALSE) %>% 
+  # Make the site column bold
+  column_spec(1:1, bold = T) %>% 
+  # Make the row blue for the month with highest mean chlorophyll concentration
+  row_spec(1:2, bold = T, color = "blue")
+```
+
+**Table 2: Comparisons of Mean Lobster Size in 2012 and 2017 at non-MPA Sites** Spiny Lobster sizes (carapace length in mm) at non-MPA sites (Arroyo Quemado, Mohawk Reef, and Carpinteria) showed no significant differences between 2012 and 2017 based on a two-sample Student's t-test performed for each site [AQUE: (t(`r round(AQUE_size_t$parameter, digits = 2)`) = `r round(AQUE_size_t$statistic, digits = 2)`, *p* = `r round(AQUE_size_t$p.value, digits = 2)`, $\alpha$ = 0.05), CARP: (t(`r round(CARP_size_t$parameter, digits = 2)`) = `r round(CARP_size_t$statistic, digits = 2)`, *p* = `r round(CARP_size_t$p.value, digits = 2)`, $\alpha$ = 0.05), MOHK: (t(`r round(MOHK_size_t$parameter, digits = 2)`) = `r round(MOHK_size_t$statistic, digits = 2)`, *p* = `r round(MOHK_size_t$p.value, digits = 2)`, $\alpha$ = 0.05).]
+
+```{r echo = FALSE, include = TRUE}
+### Creating a new data frame to be used in a table for number 3 highlighting only non-MPA sites
+non_mpa_summary <- lobster_expand %>% 
+  filter(YEAR == "2012" | YEAR == "2017") %>% 
+  filter(SITE == "AQUE" | SITE == "CARP" | SITE == "MOHK") %>% 
+  select("YEAR", "SITE", "SIZE") %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(mean = round(mean(SIZE), 2),
+            sd = round(sd(SIZE), 2))
+
+kable(non_mpa_summary, col.names = c("Site",
+                        "Year",
+                        "Mean Carapace Length (mm)",
+                        "Standard Deviation (mm)"),
+        font.lab = 50) %>% 
+        # Alternating colors with appropriate table width and a 'hover' feature for html viewers
+        kable_styling(bootstrap_option = c("striped", "hover"), full_width = FALSE) %>% 
+  # Make the site column bold
+  column_spec(1:1, bold = T)
+```
+
 
 ```{r echo = FALSE, include = FALSE}
 # What is the proportion of lobsters above the legal length (82.6 mm)? Compare that amongst the 5 sites.
