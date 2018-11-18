@@ -3,27 +3,10 @@ title: "ESM206_Assignment4"
 author: "Geoffrey Cook"
 date: "11/13/2018"
 output:
+  pdf_document: default
   html_document: default
   word_document: default
 ---
-Introduction: 
-
-The California Spiny Lobster, Panulirus interruptus, is a marine crustacean found along the coast from Point Conception in Santa Barbara County to the US-Mexican border. (1) Lobster fishing in this area has a deep history and continues today. In an effort to study and understand the impacts of human activities on coastal ecosystems, Santa Barbara Coastal Long Term Ecological Research conducted a study on the California Spiny Lobster. Data including lobster abundance and size was gathered at various giant kelp forest ecosystems sites along the southern California coast. 
-
-Multiple sites were defined and observed in the Santa Barbara Long Term Ecological Research study involving the California Spiny Lobster. Our analysis in this research paper focuses on five of the sites: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP). Two of the sites, Naples and Isla Vista, are located in the California Fish and Game Network of Marine Protected Areas (MPA). MPAs are defined marine or estuarine areas designed to protect or conserve marine life and habitat. According to NOAA’s MPA inventory database, Naples’ primary conservation focus is natural heritage. Commercial and recreational fishing are restricted year round. The Isla Vista site is listed as Campus Point State Marine Conservation Area in the NOAA database. The protection focus is the ecosystem, and commercial and recreational fishing are also restricted year round. Major revisions and additions to Southern California MPAs went into effect in state waters on January 1, 2012. Both Naples and Isla Vista were established as MPAs on this date. Lobster size and abundance was observed and recorded at each of the sites from 2012-08-20 to 2017-08-25. 
-
-Lobster abundance is measured as a count of physical lobsters observed within a defined area. Researchers for the Long Term Ecological Research study, recorded abundance of lobsters of with relation to their size. Abundance can be affected by a multitude of factors, including predation. The spiny lobster is prey to various marine species including giant sea bass, California sheephead, cabezon, horn shark, leopard shark, octopus and sea otters. Humans are also predators and have been for hundreds of years. Documented lobster fishing in the region between Santa Barbara County and the US-Mexican border has been recorded since the late 1800s (2). By the 1900s, lobster counts were decreasing significantly and preliminary measures were enacted to limit rapid decline in population due to human forces. These regulations included seasonal fishing and size limits for catch. (2). Size limitations are still currently enforced. 
-
-Lobster size is an important ecological factor. The body length of the lobster larva is about 1.4 mm at at the first stage of its development and about 29 mm at the final larva development stage. This measurement is taken along the length of the body shell, or carapace, from the edge of the eye socket to the rear edge of the shell, above the tail. Once a juvenile, carapace length increases about 3.1 mm after each molt (shedding of the old shell). Juveniles reach approximately 24 mm after 1 year and 44 mm after 2 years. A length of 82.6 mm is expected after approximately 7 to 10 years. This 82.6 mm value is of importance because this has been established as the legal limit for lobster catch. Once lobsters have reached this size, fishermen can keep the lobster instead of returning it to the ocean. The minimum size limit was established with the intent to allow each lobster to reproduce at least once before it is captured (3). In the Santa Barbara Coastal Long Term Ecological Research study, a range of carapace sizes were observed in each of the various sites. 
-
-Data and Methods
-
-Data was provided from the SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster from years 2012 to 2017. Fishing pressure was determined through counted number of fishing trap floats recorded in five locations(Isla Vista, Naples, Arroyo Quemado, Mohawk Reef, and Carpinteria) two of which are designated Marine Protected Areas (Isla Vista and Naples). Observations were collected every 2 to 4 weeks during lobster fishing season (October to March). Abundance and size data was recorded annually by divers in the months immediately prior to the start of lobster fishing season.
-
-![alt text here]()
-Figure 1. Map of locations from which data on Spiny Lobsters was collected
-
-Lobster abundance (measured by counts of individuals) fishing pressure (measured by number of trap buoys) and lobster size (measured by mean carapace length) were analyzed to determine trends and significant differences across the 5 locations. The state of California’s South Coast Supplemental Fishing Report on Spiny Lobster was used to compare impacts of fishing pressure in MPA and non-MPA locations before and after their implementation in 2012. Data analysis and visualizations were performed in R-Studio statistical software (v. 1.1.456), Microsoft Word (v. 16.18), and Preview (v. 10.1).
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -58,7 +41,23 @@ lobster_traps_tidied <- lobster_traps %>%
 
 ```
 
+##Introduction## 
 
+The California Spiny Lobster, Panulirus interruptus, is a marine crustacean found along the coast from Point Conception in Santa Barbara County to the US-Mexican border. (1) Lobster fishing in this area has a deep history and continues today. In an effort to study and understand the impacts of human activities on coastal ecosystems, Santa Barbara Coastal Long Term Ecological Research conducted a study on the California Spiny Lobster. Data including lobster abundance and size was gathered at various giant kelp forest ecosystems sites along the southern California coast. 
+
+Multiple sites were defined and observed in the Santa Barbara Long Term Ecological Research study involving the California Spiny Lobster. Our analysis in this research paper focuses on five of the sites: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP). Two of the sites, Naples and Isla Vista, are located in the California Fish and Game Network of Marine Protected Areas (MPA). MPAs are defined marine or estuarine areas designed to protect or conserve marine life and habitat. According to NOAA’s MPA inventory database, Naples’ primary conservation focus is natural heritage. Commercial and recreational fishing are restricted year round. The Isla Vista site is listed as Campus Point State Marine Conservation Area in the NOAA database. The protection focus is the ecosystem, and commercial and recreational fishing are also restricted year round. Major revisions and additions to Southern California MPAs went into effect in state waters on January 1, 2012. Both Naples and Isla Vista were established as MPAs on this date. Lobster size and abundance was observed and recorded at each of the sites from 2012-08-20 to 2017-08-25. 
+
+Lobster abundance is measured as a count of physical lobsters observed within a defined area. Researchers for the Long Term Ecological Research study, recorded abundance of lobsters of with relation to their size. Abundance can be affected by a multitude of factors, including predation. The spiny lobster is prey to various marine species including giant sea bass, California sheephead, cabezon, horn shark, leopard shark, octopus and sea otters. Humans are also predators and have been for hundreds of years. Documented lobster fishing in the region between Santa Barbara County and the US-Mexican border has been recorded since the late 1800s (2). By the 1900s, lobster counts were decreasing significantly and preliminary measures were enacted to limit rapid decline in population due to human forces. These regulations included seasonal fishing and size limits for catch. (2). Size limitations are still currently enforced. 
+
+Lobster size is an important ecological factor. The body length of the lobster larva is about 1.4 mm at at the first stage of its development and about 29 mm at the final larva development stage. This measurement is taken along the length of the body shell, or carapace, from the edge of the eye socket to the rear edge of the shell, above the tail. Once a juvenile, carapace length increases about 3.1 mm after each molt (shedding of the old shell). Juveniles reach approximately 24 mm after 1 year and 44 mm after 2 years. A length of 82.6 mm is expected after approximately 7 to 10 years. This 82.6 mm value is of importance because this has been established as the legal limit for lobster catch. Once lobsters have reached this size, fishermen can keep the lobster instead of returning it to the ocean. The minimum size limit was established with the intent to allow each lobster to reproduce at least once before it is captured (3). In the Santa Barbara Coastal Long Term Ecological Research study, a range of carapace sizes were observed in each of the various sites. 
+
+##Data and Methods##
+
+Data was provided from the SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster from years 2012 to 2017. Fishing pressure was determined through counted number of fishing trap floats recorded in five locations(Isla Vista, Naples, Arroyo Quemado, Mohawk Reef, and Carpinteria) two of which are designated Marine Protected Areas (Isla Vista and Naples). Observations were collected every 2 to 4 weeks during lobster fishing season (October to March). Abundance and size data was recorded annually by divers in the months immediately prior to the start of lobster fishing season.
+
+![**Figure 1.** Map of locations from which data on Spiny Lobsters was collected](lobster_map.png)
+
+Lobster abundance (measured by counts of individuals) fishing pressure (measured by number of trap buoys) and lobster size (measured by mean carapace length) were analyzed to determine trends and significant differences across the 5 locations. The state of California’s South Coast Supplemental Fishing Report on Spiny Lobster was used to compare impacts of fishing pressure in MPA and non-MPA locations before and after their implementation in 2012. Data analysis and visualizations were performed in R-Studio statistical software (v. 1.1.456), Microsoft Word (v. 16.18), and Preview (v. 10.1).
 
 ```{r echo = FALSE, include = FALSE}
 
@@ -133,7 +132,13 @@ size_abundance_join <- full_join(lobster_abundance_summary, lobster_trap_summary
 
 ```
 
-```{r include = TRUE, echo = FALSE}
+##Results and Discussion##
+
+####*Trends in Lobster Abundance and Fishing Pressure between 2012 and 2017*####
+
+Trends in lobster abundance were compared against trends in fishing pressure and appear to be inversely related. When fishing pressure decreased, lobster abundance increased. This is reasonable to assume given fishing by its very nature removes individuals from the populations studied and therefore decreases measurements of abundance. The most notable differences were observed at Carpinteria and Isla Vista. This can be attributed to a 37.5% decrease in fishing pressure at both locations from 2016-2017 which allowed populations to more than triple.
+
+```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap="**Figure 2. Impact of Fishing Pressure on Lobster abundance** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017."}
 # Can I make these into facet_wrapped line graphs? 
 abundance_trap_sites_plot <- ggplot(size_abundance_join) + 
   geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
@@ -147,6 +152,7 @@ abundance_trap_sites_plot <- ggplot(size_abundance_join) +
        y = "Number of Lobsters Caught",
        title = "Per Site Impact on Annual Lobster Abundance due to Fishing Pressure")
 abundance_trap_sites_plot
+
 ```
 
 ```{r echo = FALSE, include = FALSE}
