@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo = FALSE, include = FALSE}
 
+# load packages
+
 library(tidyverse)
 library(pwr)
 library(kableExtra)
@@ -26,11 +28,13 @@ library(vcdExtra)
 lobster_size <- read_csv("lobster_size_abundance.csv")
 lobster_traps <- read_csv("lobster_traps.csv")
 
-# fix the lobster size data: select relevant columns, get rid of the zero counts, expand so that each lobster has its own row
+# fix the lobster size data: select relevant columns, get rid of the -99999 entries, where data was not recorded/available.  
 
 lobster_size_tidied <- lobster_size %>% 
   select(YEAR, MONTH, SITE, SIZE, COUNT) %>% 
-  filter(SIZE != "-99999") # if the size is -9999, then the count was zero.
+  filter(SIZE != "-99999") # if the size is -9999, it is not included in our new dataset.
+
+#expand so that each lobster has its own row
 
 lobster_expand <- expand.dft(data.frame(lobster_size_tidied), freq="COUNT")
 
@@ -67,24 +71,27 @@ Lobster abundance (measured by counts of individuals) fishing pressure (measured
 ########## Exploring trends in lobster counts and traps between sites##########
 # summary table of some statistics by site called sites_sizes for the whole range 2012-2017
 
+#exploring total counts per year, not separated out by site. 
+
 sites_sizes <- lobster_expand %>% 
   group_by(YEAR) %>% 
   summarize(count=n())
 sites_sizes
 
-# summary of trap data - for all years! 
+# summary of trap data - for each year, all sites. 
 site_traps <- lobster_traps_tidied %>% 
   group_by(YEAR) %>%
-  filter(SITE == "AQUE" | SITE == "NAPL" | SITE == "MOHK" | SITE == "IVEE" | SITE == "CARP") %>% 
   summarize(total= sum(TRAPS))
 site_traps
+
+##join the two newly created dataframes together
 
 lobster_join <- full_join(sites_sizes,site_traps, by= "YEAR") %>% 
   rename("total_traps"="total",
          "lobster_count"="count")
 lobster_join
 
-#### visualizing lobster abundance over time (2012-2017)
+#### visualizing lobster abundance over time (2012-2017), by site. Now dataframes are broken down by year AND by site. 
 
 lobster_abundance_summary <- lobster_expand %>%
   group_by(YEAR, SITE) %>% 
@@ -96,7 +103,7 @@ lobster_abundance_plot <- ggplot(lobster_abundance_summary, aes(x=YEAR,y=count))
   facet_wrap(~SITE)
 lobster_abundance_plot
 
-#### visualizing lobster trap pressure over time 2012-2017 (number of traps)
+#### visualizing lobster trap pressure over time 2012-2017 (number of traps). Now incorporating site component. how many traps per site in each year. 
 
 lobster_trap_summary <- lobster_traps_tidied %>%
   group_by(YEAR, SITE) %>% 
@@ -106,7 +113,7 @@ lobster_trap_plot <- ggplot(lobster_trap_summary, aes(x=YEAR,y=count))+
   geom_line(aes())
 lobster_trap_plot
 
-### trying to visualize abundance AND trap pressure on one graph.... not sure if this is actually that useful blah.
+### trying to visualize abundance AND trap pressure on one graph.... not sure if this is actually that useful blah. back to the dataframe that does not separate by site. (lobster_join)
 
 lobster_abundance_trap_plot <- ggplot(lobster_join) + 
   geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
