@@ -3,9 +3,9 @@ title: "ESM206_Assignment4"
 author: "Geoffrey Cook"
 date: "11/13/2018"
 output:
-  pdf_document: default
   html_document: default
   word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -155,7 +155,11 @@ abundance_trap_sites_plot
 
 ```
 
-```{r echo = FALSE, include = FALSE}
+####*Trends in Mean Lobster Size*####
+
+Mean carapace length (mm) of Spiny Lobsters differed significantly accross the 5 sites studied for the year 2017 (one-way ANOVA, F(4, 1663) = 3.42, *p* = 0.009, $\alpha$ = 0.05). Post-hoc analysis with Tukey's HSD ($\alpha$ = 0.05) revealed that the Naples location differed significantly with Carpinteria and Isla Vista (pairwise *p* = 0.023, and pairwise *p* = 0.004, respectively).
+
+```{r echo = FALSE, include = TRUE, fig.align = "center", fig.cap = "**Figure 3. Mean Lobster Size by Location** Observations of mean Spiny Lobster size as measured by carapace length (millimeters) accross all 5 locations studied for the year 2017. Lower and upper boundaries of boxes represent 25th and 75th percentiles, respectively. Whiskers represented are 1.5x the interquartile range. Points indicate outliers. "}
 
 # 2. Compare mean lobster size by site in 2017
 # Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. 
@@ -171,8 +175,7 @@ size_boxplot <- ggplot(lobster_expand_2017, aes(x = SITE, y = SIZE)) +
       panel.background = element_blank(),
       axis.line = element_line(colour = "black")) +
   labs(x = "Site Names",
-       y = "Carapace Length (mm)", 
-       title = "Mean Lobster Size by Site") + # WILL need a fig. caption instead of title in the report
+       y = "Carapace Length (mm)") +
        theme(legend.position = "none") +
   scale_fill_brewer()
 size_boxplot
@@ -226,9 +229,6 @@ lobster_size_2017_ph
 
 # sig differences between NAPL-CARP, NAPL-IVEE at alpha=.05
 ```
-
-
-
 ```{r echo = FALSE, include = FALSE}
 
 # 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
