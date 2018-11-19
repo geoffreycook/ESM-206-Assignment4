@@ -245,7 +245,7 @@ lobster_size_2017_ph
 
 ####*Impact of MPA Status On Spiny Lobster Size*####
 
-One MPA site experienced a significant difference in Spiny Lobster size as measured by mean carapace length in millimeters (Table 1). Spiny Lobsters sampled from non-MPA sites showed no significant difference in size (Table 2). All Spiny Lobster populations experienced growth over the 5 year period with the exception of those sampled from Carpinteria and Mohawk Reef who showed diminishing average size by 2.13 mm and 5.25 mm, respectively.  
+One MPA site and one non-MPA site experienced a significant difference in Spiny Lobster size as measured by mean carapace length in millimeters (Table 1 and Table 2, respectively). All Spiny Lobster populations experienced growth over the 5 year period with the exception of those sampled from Carpinteria and Mohawk Reef who showed diminishing average size by 2.13 mm and 5.25 mm, respectively.  
 ```{r echo = FALSE, include = FALSE}
 
 # 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
@@ -370,7 +370,7 @@ kable(mpa_summary, col.names = c("Site",
   row_spec(1:2, bold = T, color = "blue")
 ```
 
-**Table 2: Comparisons of Mean Lobster Size in 2012 and 2017 at non-MPA Sites** Spiny Lobster sizes (carapace length in mm) at non-MPA sites (Arroyo Quemado, Mohawk Reef, and Carpinteria) showed no significant differences between 2012 and 2017 based on a two-sample Student's t-test performed for each site [AQUE: (t(`r round(AQUE_size_t$parameter, digits = 2)`) = `r round(AQUE_size_t$statistic, digits = 2)`, *p* = `r round(AQUE_size_t$p.value, digits = 2)`, $\alpha$ = 0.05), CARP: (t(`r round(CARP_size_t$parameter, digits = 2)`) = `r round(CARP_size_t$statistic, digits = 2)`, *p* = `r round(CARP_size_t$p.value, digits = 2)`, $\alpha$ = 0.05), MOHK: (t(`r round(MOHK_size_t$parameter, digits = 2)`) = `r round(MOHK_size_t$statistic, digits = 2)`, *p* = `r round(MOHK_size_t$p.value, digits = 2)`, $\alpha$ = 0.05)].
+**Table 2: Comparisons of Mean Lobster Size in 2012 and 2017 at non-MPA Sites** Spiny Lobster sizes (carapace length in mm) at at Mohawk Reef showed a significant differences between 2012 and 2017 based on a two-sample Student's t-test (t(`r round(MOHK_size_t$parameter, digits = 2)`) = `r round(MOHK_size_t$statistic, digits = 2)`, *p* = `r round(MOHK_size_t$p.value, digits = 2)`, $\alpha$ = 0.05)].
 
 ```{r echo = FALSE, include = TRUE}
 ### Creating a new data frame to be used in a table for number 3 highlighting only non-MPA sites
@@ -390,7 +390,9 @@ kable(non_mpa_summary, col.names = c("Site",
         # Alternating colors with appropriate table width and a 'hover' feature for html viewers
         kable_styling(bootstrap_option = c("striped", "hover"), full_width = FALSE) %>% 
   # Make the site column bold
-  column_spec(1:1, bold = T)
+  column_spec(1:1, bold = T) %>% 
+  row_spec(5:6, bold = T, color = "blue")
+
 ```
 
 
