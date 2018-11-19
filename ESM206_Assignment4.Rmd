@@ -22,7 +22,6 @@ library(kableExtra)
 library(RColorBrewer)
 library(car)
 library(vcdExtra)
-
 # load lobster datasets 
 
 lobster_size <- read_csv("lobster_size_abundance.csv")
@@ -149,7 +148,7 @@ Trends in lobster abundance were compared against trends in fishing pressure and
 
 ```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap="**Figure 2. Impact of Fishing Pressure on Lobster abundance** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017."}
 # Can I make these into facet_wrapped line graphs? 
-abundance_trap_sites_plot <- ggplot(size_abundance_join) + 
+abundance_trap_sites_plot <- ggplot(size_abundance_join, show.legend=TRUE) + 
   geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
   geom_line(aes(x=YEAR,y=trap_count), color="grey")+
    theme(panel.grid.major = element_blank(),
@@ -158,8 +157,7 @@ abundance_trap_sites_plot <- ggplot(size_abundance_join) +
       axis.line = element_line(colour = "black"))+
   facet_wrap(~SITE)+
   labs(x = "Year",
-       y = "Number of Lobsters Caught",
-       title = "Per Site Impact on Annual Lobster Abundance due to Fishing Pressure")
+       y = "Number of Lobsters Caught and Traps Set")
 abundance_trap_sites_plot
 
 ```
