@@ -54,7 +54,7 @@ Size limitations are still enforced.
 
 Lobster size is an important ecological factor. The body length of the lobster larva is about 1.4 mm at at the first stage of its development and about 29 mm at the final larva development stage.$^7$ This measurement is taken along the anterior body segment, or carapace, from the edge of the eye socket to the rear edge of the carapace.$^2$ Once a juvenile hatches, carapace length increases about 3.1 mm after each molt (shedding of the old exoskeleton).$^7$ Juveniles reach approximately 24 mm after 1 year and 44 mm after 2 years. A length of 82.6 mm is expected after sexual maturity, at approximately 7 to 10 years.$^7$ This 82.6 mm value has been established as the legal limit for lobster catch. Once lobsters have reached this size, fishermen can keep the lobster, whereas any smaller lobsters must be released back to the ocean. The minimum size limit was established with the intent to allow each lobster to reproduce at least once before it is captured.$^2$ In the Santa Barbara Coastal Long Term Ecological Research study, a range of carapace sizes were observed in various sites.$^5$ 
 
-Multiple sites were defined and observed in the Santa Barbara Long Term Ecological Research study involving the California Spiny Lobster. Our analysis in this research paper focuses on five of the sites: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP). Lobster size and abundance was observed and recorded at each of the sites from 2012-08-20 to 2017-08-25 (5). Two of the sites, Naples and Isla Vista, are located in the California Fish and Game Network of Marine Protected Areas (MPA).$^5$ MPAs are defined marine or estuarine areas designed to protect or conserve marine life and habitat. According to NOAA’s MPA inventory database, Naples’ primary conservation focus is natural heritage. Commercial and recreational fishing are restricted year round. The Isla Vista site is listed as Campus Point State Marine Conservation Area in the NOAA database. The protection focus is the ecosystem, and commercial and recreational fishing are also restricted year round.$^4$ Major revisions and additions to Southern California MPAs went into effect in state waters on January 1, 2012. Both Naples and Isla Vista were established as MPAs on this date. 
+Multiple sites were defined and observed in the Santa Barbara Long Term Ecological Research study involving the California Spiny Lobster. Our analysis focuses on five of the sites: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP). Lobster size and abundance was observed and recorded at each of the sites from 2012-08-20 to 2017-08-25 (5). Two of the sites, Naples and Isla Vista, are located in the California Fish and Game Network of Marine Protected Areas (MPA).$^5$ MPAs are defined marine or estuarine areas designed to protect or conserve marine life and habitat. According to NOAA’s MPA inventory database, Naples’ primary conservation focus is natural heritage. Commercial and recreational fishing are restricted year round. The Isla Vista site is listed as Campus Point State Marine Conservation Area in the NOAA database. The protection focus is the ecosystem, and commercial and recreational fishing are also restricted year round.$^4$ Major revisions and additions to Southern California MPAs went into effect in state waters on January 1, 2012. Both Naples and Isla Vista were established as MPAs on this date. 
 
 ##Data and Methods##
 
@@ -114,20 +114,6 @@ lobster_trap_plot <- ggplot(lobster_trap_summary, aes(x=YEAR,y=count))+
   geom_line(aes())
 lobster_trap_plot
 
-### trying to visualize abundance AND trap pressure on one graph.... not sure if this is actually that useful blah. back to the dataframe that does not separate by site. (lobster_join)
-
-lobster_abundance_trap_plot <- ggplot(lobster_join) + 
-  geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
-  geom_line(aes(x=YEAR,y=total_traps), color="grey") +
-  theme(panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(), 
-      panel.background = element_blank(),
-      axis.line = element_line(colour = "black")) +
-   labs(x = "Year",
-       y = "Count of traps and lobsters")
-
-lobster_abundance_trap_plot
-
 # THIS IS COOL cause it shows a really direct relationship between lobsters and number of traps...
 # AND NOW to explore the data by site
 
@@ -146,7 +132,24 @@ size_abundance_join <- full_join(lobster_abundance_summary, lobster_trap_summary
 
 Trends in lobster abundance were compared against trends in fishing pressure and appear to be inversely related. When fishing pressure decreased, lobster abundance increased. This is reasonable to assume given fishing by its very nature removes individuals from the populations studied and therefore decreases measurements of abundance. The most notable differences were observed at Carpinteria and Isla Vista. This can be attributed to a 37.5% decrease in fishing pressure at both locations from 2016-2017 which allowed populations to more than triple.
 
-```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap="**Figure 2. Impact of Fishing Pressure on Lobster abundance** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017."}
+```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap = "**Figure 2. Impact of Fishing Pressure on Spiny Lobster Abundance Across All Locations** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017"}
+### trying to visualize abundance AND trap pressure on one graph.... not sure if this is actually that useful blah. back to the dataframe that does not separate by site. (lobster_join)
+
+lobster_abundance_trap_plot <- ggplot(lobster_join) + 
+  geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
+  geom_line(aes(x=YEAR,y=total_traps), color="grey") +
+  theme(panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(), 
+      panel.background = element_blank(),
+      axis.line = element_line(colour = "black")) +
+   labs(x = "Year",
+       y = "Counts of Traps and Lobsters")
+
+lobster_abundance_trap_plot
+```
+
+
+```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap="**Figure 3. Impact of Fishing Pressure on Spiny Lobster Abundance Specific to Each Location** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017."}
 # Can I make these into facet_wrapped line graphs? 
 abundance_trap_sites_plot <- ggplot(size_abundance_join, show.legend=TRUE) + 
   geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
@@ -157,7 +160,7 @@ abundance_trap_sites_plot <- ggplot(size_abundance_join, show.legend=TRUE) +
       axis.line = element_line(colour = "black"))+
   facet_wrap(~SITE)+
   labs(x = "Year",
-       y = "Number of Lobsters Caught and Traps Set")
+       y = "Counts of Traps and Lobsters")
 abundance_trap_sites_plot
 
 ```
@@ -356,8 +359,7 @@ mpa_summary <- lobster_expand %>%
 kable(mpa_summary, col.names = c("Site",
                         "Year",
                         "Mean Carapace Length (mm)",
-                        "Standard Deviation (mm)"),
-        font.lab = 50) %>% 
+                        "Standard Deviation (mm)")) %>% 
         # Alternating colors with appropriate table width and a 'hover' feature for html viewers
         kable_styling(bootstrap_option = c("striped", "hover"), full_width = FALSE) %>% 
   # Make the site column bold
@@ -410,15 +412,16 @@ legal_lobsters <- lobster_expand_2017 %>%
 
 rownames(legal_lobsters) <- c("AQUE", "CARP","IVEE","MOHK","NAPL")
 
-#calculate proportions in a prop.table
-legal_prop <- prop.table(as.matrix(legal_lobsters), 1)
-legal_prop
-
 legal_chisquare <- chisq.test(legal_lobsters)
 legal_chisquare
 
 # p-value = 0.0009864
 
+```
+```{r echo = FALSE, include = FALSE}
+#calculate proportions in a prop.table
+legal_prop <- prop.table(as.matrix(legal_lobsters), 1)
+legal_prop
 ```
 
 Citations
