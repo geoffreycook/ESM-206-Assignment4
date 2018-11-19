@@ -136,8 +136,9 @@ Trends in lobster abundance were compared against trends in fishing pressure and
 ### trying to visualize abundance AND trap pressure on one graph.... not sure if this is actually that useful blah. back to the dataframe that does not separate by site. (lobster_join)
 
 lobster_abundance_trap_plot <- ggplot(lobster_join) + 
-  geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
-  geom_line(aes(x=YEAR,y=total_traps), color="grey") +
+  geom_line(aes(x=YEAR,y=lobster_count, color="Lobsters")) +
+  geom_line(aes(x=YEAR,y=total_traps, color="Traps")) +
+  labs(color="Legend")+
   theme(panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(), 
       panel.background = element_blank(),
@@ -152,8 +153,9 @@ lobster_abundance_trap_plot
 ```{r include = TRUE, echo = FALSE, fig.align = "center", fig.cap="**Figure 3. Impact of Fishing Pressure on Spiny Lobster Abundance Specific to Each Location** Blue lines indicate populations abundance in number of Spiny Lobsters (Panulirus Interruptus) and grey lines represent fishing pressure as measured by number of fishing trap floats counted. Results are from years 2012 through 2017."}
 # Can I make these into facet_wrapped line graphs? 
 abundance_trap_sites_plot <- ggplot(size_abundance_join, show.legend=TRUE) + 
-  geom_line(aes(x=YEAR,y=lobster_count), color="blue") +
-  geom_line(aes(x=YEAR,y=trap_count), color="grey")+
+  geom_line(aes(x=YEAR,y=lobster_count, color="Lobsters")) +
+  geom_line(aes(x=YEAR,y=trap_count, color="Traps"))+
+  labs(color="Legend")+
    theme(panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(), 
       panel.background = element_blank(),
